@@ -1,6 +1,4 @@
 <template>
-  <Navbar />
-
   <div class="container">
     <h2 class="text-center">New Note</h2>
     <form>

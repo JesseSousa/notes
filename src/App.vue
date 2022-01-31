@@ -1,18 +1,17 @@
 <template>
+  <Navbar />
   <router-view></router-view>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import HelloWorld from './components/Navbar.vue';
-import NoteList from './components/NoteList.vue';
+import Navbar from './components/Navbar.vue';
 import { Note } from './types';
 
 export default defineComponent({
   name: 'App',
   components: {
-    HelloWorld,
-    NoteList,
+    Navbar,
   },
   data() {
     return {

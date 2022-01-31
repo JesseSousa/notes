@@ -1,5 +1,4 @@
 <template>
-  <Navbar />
   <NoteList />
 </template>
 
