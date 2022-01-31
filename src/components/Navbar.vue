@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
     <div class="container py-2">
       <a class="navbar-brand fw-bold text-primary" href="#">Notes</a>
       <button
