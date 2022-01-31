@@ -23,5 +23,10 @@ export default defineComponent({
       this.notes.push(note);
     },
   },
+  provide() {
+    return {
+      addNewNote: this.addNewNote,
+    };
+  },
 });
 </script>
