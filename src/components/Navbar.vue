@@ -16,10 +16,14 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <router-link class="nav-link" active-class="active" to="/">
+              Home
+            </router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
+            <router-link class="nav-link" active-class="active" to="new-note">
+              New Note
+            </router-link>
           </li>
         </ul>
         <span class="navbar-text"> In development </span>
@@ -27,3 +31,11 @@
     </div>
   </nav>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent({
+  name: 'Navbar',
+});
+</script>
