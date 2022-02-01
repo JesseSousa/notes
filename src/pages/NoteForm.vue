@@ -34,11 +34,9 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
+import { useStore } from 'vuex';
 import Navbar from '../components/Navbar.vue';
-import { Note } from '../types';
-
-type NoteFormInject = (note: Note) => void;
 
 export default defineComponent({
   name: 'NoteForm',
@@ -59,9 +57,9 @@ export default defineComponent({
     // Checks if it was validated, since I don't want it to validate until the save button is pressed
     const wasValidated = ref(false);
 
-    const addNewNote = inject<NoteFormInject>('addNewNote');
+    const store = useStore();
+
     const saveNote = () => {
-      // Validation
       wasValidated.value = true;
 
       // Checks one by one
@@ -71,10 +69,10 @@ export default defineComponent({
       // Checks evertything
       isValid.value = titleIsValid.value && contentIsValid.value;
 
-      // Type guard for function and validation
-      if (!addNewNote || !isValid.value) return;
+      // Validation
+      if (!isValid.value) return;
 
-      addNewNote({
+      store.commit('addNote', {
         title: title.value,
         content: content.value,
         date: new Date(),
