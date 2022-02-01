@@ -72,7 +72,7 @@ export default defineComponent({
       // Validation
       if (!isValid.value) return;
 
-      store.commit('addNote', {
+      store.dispatch('addNote', {
         title: title.value,
         content: content.value,
         date: new Date(),
