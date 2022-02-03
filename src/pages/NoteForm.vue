@@ -72,11 +72,13 @@ export default defineComponent({
       // Validation
       if (!isValid.value) return;
 
-      store.dispatch('addNote', {
+      const newNote = {
         title: title.value,
         content: content.value,
         date: new Date(),
-      });
+      };
+
+      store.dispatch('addNote', newNote);
 
       title.value = '';
       content.value = '';
