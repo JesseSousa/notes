@@ -19,6 +19,12 @@ export default createStore<State>({
     setNotes(state, notes: Note[]) {
       state.notes = notes;
     },
+    setNote(state, payload: { id: string; note: Note }) {
+      const editedNoteIndex = state.notes.findIndex(
+        (note) => note.id === payload.id
+      );
+      Object.assign(state.notes[editedNoteIndex], payload.note);
+    },
   },
   actions: {
     addNote(context, note: Note) {
@@ -32,6 +38,14 @@ export default createStore<State>({
         })
         .catch((error) => {
           console.error('Error adding document: ', error);
+        });
+    },
+    updateNote(context, payload: { id: string; note: Note }) {
+      db.collection('notes')
+        .doc(payload.id)
+        .set(payload.note)
+        .then(() => {
+          context.commit('setNote', payload.note);
         });
     },
     loadNotes(context) {
