@@ -11,6 +11,10 @@ const routes = [
     path: '/new-note',
     component: NoteForm,
   },
+  {
+    path: '/edit-note/:id',
+    component: NoteForm,
+  },
 ];
 
 export default createRouter({
