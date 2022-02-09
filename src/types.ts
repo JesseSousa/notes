@@ -1,8 +1,9 @@
 interface Note {
   title: string;
   content: string;
-  date: Date;
+  date: string;
   id?: string;
+  updatedAt?: string;
 }
 
 export { Note };

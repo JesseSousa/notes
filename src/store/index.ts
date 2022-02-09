@@ -28,15 +28,15 @@ export default createStore<State>({
   },
   actions: {
     addNote(context, note: Note) {
-      // Date is saved as a string in the database, since firestore doesn't support the javascript Date object
-
       db.collection('notes')
-        .add({ ...note, date: note.date.toString() })
+        .add(note)
         .then((docRef) => {
+          // TODO: Display to user
           console.log('Document written with ID: ', docRef.id);
           context.commit('addNote', { ...note, id: docRef.id });
         })
         .catch((error) => {
+          // TODO: Display error to user
           console.error('Error adding document: ', error);
         });
     },

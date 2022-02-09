@@ -39,6 +39,7 @@ import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
 import db from '../db';
 import Navbar from '../components/Navbar.vue';
+import { Note } from '@/types';
 
 export default defineComponent({
   name: 'NoteForm',
@@ -101,10 +102,10 @@ export default defineComponent({
       // Validation
       if (!isValid.value) return;
 
-      const newNote = {
+      const newNote: Note = {
         title: title.value,
         content: content.value,
-        date: new Date(),
+        date: new Date().toString(),
       };
 
       if (isEditing) {
