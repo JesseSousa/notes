@@ -113,9 +113,6 @@ export default defineComponent({
         store.dispatch('addNote', newNote);
       }
 
-      title.value = '';
-      content.value = '';
-
       // Removes validation from the UI
       wasValidated.value = false;
     };
