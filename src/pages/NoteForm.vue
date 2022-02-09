@@ -34,8 +34,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, ref, onMounted } from 'vue';
+import { useRoute } from 'vue-router';
 import { useStore } from 'vuex';
+import db from '../db';
 import Navbar from '../components/Navbar.vue';
 
 export default defineComponent({
@@ -57,7 +59,34 @@ export default defineComponent({
     // Checks if it was validated, since I don't want it to validate until the save button is pressed
     const wasValidated = ref(false);
 
+    // checks if is editing
+    const isEditing = ref(false);
+
+    // loading boolean
+    const isLoading = ref(false);
+
     const store = useStore();
+    const route = useRoute();
+
+    onMounted(() => {
+      if (route.params.id) {
+        const id = typeof route.params.id === 'string' ? route.params.id : '';
+        isLoading.value = true;
+        isEditing.value = true;
+        db.collection('notes')
+          .doc(id)
+          .get()
+          .then((doc) => {
+            console.log(doc.data());
+            const note = doc.data();
+            if (note) {
+              title.value = note.title;
+              content.value = note.content;
+            }
+            isLoading.value = false;
+          });
+      }
+    });
 
     const saveNote = () => {
       wasValidated.value = true;
@@ -78,7 +107,11 @@ export default defineComponent({
         date: new Date(),
       };
 
-      store.dispatch('addNote', newNote);
+      if (isEditing) {
+        store.dispatch('updateNote', { note: newNote, id: route.params.id });
+      } else {
+        store.dispatch('addNote', newNote);
+      }
 
       title.value = '';
       content.value = '';
