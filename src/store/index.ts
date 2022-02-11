@@ -67,11 +67,11 @@ export default createStore<State>({
         });
     },
     getCurrentNote(context, id: string) {
-      db.collection('notes')
+      return db
+        .collection('notes')
         .doc(id)
         .get()
         .then((doc: any) => {
-          console.log('DOC', doc.data());
           context.commit('setCurrentNote', doc.data());
         })
         .catch((e) => {
