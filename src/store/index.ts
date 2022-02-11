@@ -54,7 +54,6 @@ export default createStore<State>({
         });
     },
     loadNotes(context) {
-      // TODO: REFACTOR THIS PLEASE, I'M ASHAMED
       db.collection('notes')
         .get()
         .then((snapshot) => {
