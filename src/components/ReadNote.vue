@@ -28,7 +28,10 @@ export default defineComponent({
     const { id } = this.$route.params;
 
     if (id) {
-      this.getCurrentNote(id);
+      this.getCurrentNote(id).then(() => {
+        console.log(this.currentNote);
+        this.content = marked.parse(this.currentNote.content);
+      });
     }
   },
 });
