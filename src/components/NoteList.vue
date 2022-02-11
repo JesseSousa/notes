@@ -4,8 +4,9 @@
     <div class="list-group">
       <a
         v-for="note in notes"
-        :key="note"
+        :key="note.id"
         class="list-group-item list-group-item-action d-flex justify-content-between"
+        @click="goToNotePage(note.id)"
       >
         <span class="fw-bold">
           {{ note.title }}
@@ -26,6 +27,11 @@ export default defineComponent({
   name: 'NoteList',
   computed: {
     ...mapState(['notes']),
+  },
+  methods: {
+    goToNotePage(noteId: string) {
+      this.$router.push(`/read-note/${noteId}`);
+    },
   },
 });
 </script>

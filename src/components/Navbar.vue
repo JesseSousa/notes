@@ -21,7 +21,7 @@
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" active-class="active" to="new-note">
+            <router-link class="nav-link" active-class="active" to="/new-note">
               New Note
             </router-link>
           </li>

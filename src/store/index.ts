@@ -4,12 +4,14 @@ import db from '../db';
 
 interface State {
   notes: Note[];
+  currentNote: Note;
 }
 
 export default createStore<State>({
   state() {
     return {
       notes: [] as Note[],
+      currentNote: {} as Note,
     };
   },
   mutations: {
@@ -24,6 +26,9 @@ export default createStore<State>({
         (note) => note.id === payload.id
       );
       Object.assign(state.notes[editedNoteIndex], payload.note);
+    },
+    setCurrentNote(state, note: Note) {
+      state.currentNote = note;
     },
   },
   actions: {
@@ -59,6 +64,19 @@ export default createStore<State>({
           }));
 
           context.commit('setNotes', notes);
+        });
+    },
+    getCurrentNote(context, id: string) {
+      return db
+        .collection('notes')
+        .doc(id)
+        .get()
+        .then((doc: any) => {
+          context.commit('setCurrentNote', doc.data());
+        })
+        .catch((e) => {
+          console.log('ERROR AT CONNECTING TO THE DATABASE');
+          console.log(e);
         });
     },
   },
