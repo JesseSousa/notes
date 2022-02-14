@@ -12,7 +12,7 @@
     "core-js": "^3.6.5",
     "firebase": "^8.10.0",
     "marked": "^4.0.12",
-    "vue": "^3.0.0",
+    "vue": "^3.2.31",
     "vue-dompurify-html": "^2.5.0",
     "vue-router": "^4.0.12",
     "vuex": "^4.0.2"
