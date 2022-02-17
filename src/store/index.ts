@@ -16,7 +16,9 @@ export default createStore<State>({
   },
   mutations: {
     addNote(state, note: Note) {
-      state.notes.push(note);
+      const newNote = note;
+      newNote.date = new Date(newNote.date).toLocaleString('pt-BR');
+      state.notes.push(newNote);
     },
     setNotes(state, notes: Note[]) {
       state.notes = notes;
@@ -57,10 +59,10 @@ export default createStore<State>({
       db.collection('notes')
         .get()
         .then((snapshot) => {
-          const notes = snapshot.docs.map((doc: any) => ({
+          const notes: Note[] = snapshot.docs.map((doc: any) => ({
             ...doc.data(),
             id: doc.id,
-            date: new Date(doc.data().date),
+            date: new Date(doc.data().date).toLocaleString('pt-BR'),
           }));
 
           context.commit('setNotes', notes);
