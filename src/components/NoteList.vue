@@ -12,7 +12,7 @@
           {{ note.title }}
         </span>
         <span class="text-muted">
-          {{ note.date.toLocaleString('pt-BR') }}
+          {{ note.date }}
         </span>
       </a>
     </div>
@@ -20,24 +20,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import { mapState } from 'vuex';
+  import { defineComponent } from 'vue';
+  import { mapState, mapActions } from 'vuex';
 
-export default defineComponent({
-  name: 'NoteList',
-  computed: {
-    ...mapState(['notes']),
-  },
-  methods: {
-    goToNotePage(noteId: string) {
-      this.$router.push(`/read-note/${noteId}`);
+  export default defineComponent({
+    name: 'NoteList',
+    computed: {
+      ...mapState(['notes']),
     },
-  },
-});
+    watch: {
+      $route: {
+        handler(to, from) {
+          if (to.path !== from.path) {
+            this.loadNotes();
+            console.log('PATH CHANGED');
+          }
+        },
+        deep: true,
+      },
+    },
+    methods: {
+      goToNotePage(noteId: string) {
+        this.$router.push(`/read-note/${noteId}`);
+      },
+      ...mapActions(['loadNotes']),
+    },
+  });
 </script>
 
 <style scoped>
-a {
-  cursor: pointer;
-}
+  a {
+    cursor: pointer;
+  }
 </style>
